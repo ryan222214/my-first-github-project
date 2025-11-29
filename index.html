@@ -2,14 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Ryan's AI Lab</title>
+    <title>First GitHub Sandbox</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Ryan's first GitHub site. A lab where AI helps build tools, systems, and ideas."
+      content="A fully loaded single page sandbox for a first GitHub project. Animations, themes, interactive playground and command palette in one file."
     />
 
-    <!-- Google Font -->
+    <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -19,26 +19,27 @@
 
     <style>
       :root {
-        --bg: #050816;
-        --bg-soft: #0b1020;
-        --bg-softer: #111827;
+        --bg: #020617;
+        --bg-soft: #050816;
+        --bg-softer: #0b1120;
         --accent: #6366f1;
         --accent-soft: rgba(99, 102, 241, 0.15);
         --accent-strong: #4f46e5;
+        --accent-alt: #22d3ee;
         --text: #e5e7eb;
         --muted: #9ca3af;
-        --border: #1f2933;
+        --border: #1f2937;
         --danger: #f97373;
       }
 
-      /* Dark mode variables */
       :root[data-theme="light"] {
         --bg: #f3f4f6;
-        --bg-soft: #ffffff;
-        --bg-softer: #f9fafb;
+        --bg-soft: #f9fafb;
+        --bg-softer: #ffffff;
         --accent: #4f46e5;
         --accent-soft: rgba(79, 70, 229, 0.12);
-        --accent-strong: #4338ca;
+        --accent-strong: #3730a3;
+        --accent-alt: #06b6d4;
         --text: #111827;
         --muted: #6b7280;
         --border: #e5e7eb;
@@ -54,9 +55,12 @@
       body {
         font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
           "Segoe UI", sans-serif;
-        background: radial-gradient(circle at top, #111827 0, var(--bg) 45%);
-        color: var(--text);
         min-height: 100vh;
+        background:
+          radial-gradient(circle at top left, #111827 0, transparent 45%),
+          radial-gradient(circle at bottom right, #0f172a 0, transparent 45%),
+          linear-gradient(to bottom, var(--bg-soft), var(--bg));
+        color: var(--text);
         line-height: 1.6;
         -webkit-font-smoothing: antialiased;
       }
@@ -69,7 +73,7 @@
       .page {
         max-width: 1120px;
         margin: 0 auto;
-        padding: 1.5rem 1.25rem 3rem;
+        padding: 1.5rem 1.25rem 3.25rem;
       }
 
       /* Nav */
@@ -77,16 +81,16 @@
       .nav {
         position: sticky;
         top: 0;
-        z-index: 20;
+        z-index: 30;
         backdrop-filter: blur(16px);
         background: linear-gradient(
           to bottom,
-          rgba(5, 8, 22, 0.92),
-          rgba(5, 8, 22, 0.6)
+          rgba(2, 6, 23, 0.92),
+          rgba(2, 6, 23, 0.7)
         );
-        border-bottom: 1px solid rgba(31, 41, 55, 0.9);
-        margin: -1.5rem -1.25rem 1.5rem;
-        padding: 0.75rem 1.5rem;
+        border-bottom: 1px solid rgba(15, 23, 42, 0.9);
+        margin: -1.5rem -1.25rem 1.4rem;
+        padding: 0.7rem 1.4rem;
       }
 
       :root[data-theme="light"] .nav {
@@ -100,44 +104,47 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 1rem;
+        gap: 0.8rem;
       }
 
       .nav-left {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.6rem;
       }
 
       .nav-logo {
         width: 28px;
         height: 28px;
         border-radius: 999px;
-        background: radial-gradient(circle at 30% 20%, #ffffff, #4f46e5);
-        box-shadow: 0 0 24px rgba(129, 140, 248, 0.8);
+        background:
+          radial-gradient(circle at 20% 20%, #ffffff, #4f46e5),
+          radial-gradient(circle at 80% 80%, #22d3ee, #0f172a);
+        box-shadow: 0 0 24px rgba(79, 70, 229, 0.85);
       }
 
       .nav-title {
-        font-weight: 600;
         font-size: 0.95rem;
+        font-weight: 600;
       }
 
-      .nav-subtitle {
+      .nav-sub {
         font-size: 0.78rem;
         color: var(--muted);
       }
 
       .nav-links {
         display: flex;
-        gap: 1.25rem;
+        flex-wrap: wrap;
+        gap: 1rem;
         align-items: center;
         font-size: 0.85rem;
       }
 
       .nav-link {
-        color: var(--muted);
-        cursor: pointer;
         position: relative;
+        cursor: pointer;
+        color: var(--muted);
       }
 
       .nav-link:hover {
@@ -163,7 +170,7 @@
       .theme-toggle {
         border-radius: 999px;
         border: 1px solid var(--border);
-        padding: 0.3rem 0.7rem;
+        padding: 0.35rem 0.7rem;
         font-size: 0.8rem;
         display: inline-flex;
         align-items: center;
@@ -190,24 +197,24 @@
         grid-template-columns: minmax(0, 2fr) minmax(0, 1.8fr);
         gap: 2rem;
         align-items: center;
-        padding-top: 0.75rem;
-        padding-bottom: 2rem;
+        padding-top: 0.6rem;
+        padding-bottom: 2.1rem;
       }
 
-      .badge {
+      .hero-badge {
         display: inline-flex;
         align-items: center;
         gap: 0.4rem;
-        padding: 0.25rem 0.6rem;
+        padding: 0.25rem 0.7rem;
         border-radius: 999px;
         background: var(--accent-soft);
-        border: 1px solid rgba(99, 102, 241, 0.35);
+        border: 1px solid rgba(99, 102, 241, 0.4);
         color: var(--accent);
         font-size: 0.7rem;
         margin-bottom: 0.9rem;
       }
 
-      .badge-dot {
+      .hero-badge-dot {
         width: 6px;
         height: 6px;
         border-radius: 999px;
@@ -216,7 +223,7 @@
       }
 
       .hero-title {
-        font-size: clamp(2rem, 3.1vw, 2.6rem);
+        font-size: clamp(2.1rem, 3.3vw, 2.7rem);
         font-weight: 700;
         margin-bottom: 0.6rem;
       }
@@ -225,16 +232,17 @@
         background: linear-gradient(90deg, #a855f7, #22d3ee, #4f46e5);
         -webkit-background-clip: text;
         color: transparent;
+        white-space: nowrap;
       }
 
-      .hero-subtitle {
+      .hero-sub {
         font-size: 0.95rem;
         color: var(--muted);
         max-width: 32rem;
         margin-bottom: 1.2rem;
       }
 
-      .hero-subtitle strong {
+      .hero-sub strong {
         color: var(--text);
         font-weight: 500;
       }
@@ -242,37 +250,36 @@
       .hero-cta-row {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.75rem;
+        gap: 0.7rem;
         margin-bottom: 1.3rem;
       }
 
-      .btn-primary,
-      .btn-outline {
+      .btn,
+      .btn-ghost {
         border-radius: 999px;
-        padding: 0.55rem 1.1rem;
+        padding: 0.55rem 1.15rem;
         font-size: 0.9rem;
         border: 1px solid transparent;
         cursor: pointer;
       }
 
-      .btn-primary {
+      .btn {
         background: linear-gradient(135deg, #4f46e5, #22d3ee);
-        color: white;
-        border-color: transparent;
+        color: #ffffff;
         box-shadow: 0 10px 30px rgba(56, 189, 248, 0.35);
       }
 
-      .btn-primary:hover {
-        filter: brightness(1.05);
+      .btn:hover {
+        filter: brightness(1.06);
       }
 
-      .btn-outline {
+      .btn-ghost {
         background: transparent;
         border-color: var(--border);
         color: var(--muted);
       }
 
-      .btn-outline:hover {
+      .btn-ghost:hover {
         border-color: var(--accent);
         color: var(--text);
       }
@@ -285,7 +292,7 @@
         color: var(--muted);
       }
 
-      .hero-meta-item span {
+      .hero-meta span {
         display: block;
         font-size: 0.75rem;
         color: var(--text);
@@ -302,26 +309,28 @@
         padding: 1.25rem 1.15rem;
         border-radius: 1.1rem;
         background: radial-gradient(circle at top left, #1f2937, #020617);
-        border: 1px solid rgba(31, 41, 55, 0.9);
-        box-shadow: 0 28px 60px rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(31, 41, 55, 0.95);
+        box-shadow: 0 28px 60px rgba(15, 23, 42, 0.95);
         overflow: hidden;
       }
 
       :root[data-theme="light"] .hero-card {
         background: #ffffff;
         border-color: #e5e7eb;
-        box-shadow: 0 24px 40px rgba(148, 163, 184, 0.45);
+        box-shadow: 0 24px 40px rgba(148, 163, 184, 0.55);
       }
 
-      .orbit {
+      .hero-orbit {
         position: absolute;
         inset: -30%;
-        background: radial-gradient(
-          circle at 0 0,
-          rgba(129, 140, 248, 0.6),
-          transparent 55%
-        );
-        opacity: 0.5;
+        background:
+          radial-gradient(circle at 0 0, rgba(129, 140, 248, 0.6), transparent),
+          radial-gradient(
+            circle at 100% 100%,
+            rgba(45, 212, 191, 0.5),
+            transparent
+          );
+        opacity: 0.6;
         pointer-events: none;
       }
 
@@ -332,7 +341,7 @@
         padding: 0.25rem 0.6rem;
         border-radius: 999px;
         background: rgba(15, 23, 42, 0.9);
-        border: 1px solid rgba(55, 65, 81, 0.8);
+        border: 1px solid rgba(55, 65, 81, 0.9);
         font-size: 0.68rem;
         color: var(--muted);
         margin-bottom: 0.6rem;
@@ -352,70 +361,69 @@
       .hero-card-title {
         font-size: 0.95rem;
         font-weight: 600;
-        margin-bottom: 0.4rem;
+        margin-bottom: 0.35rem;
       }
 
       .hero-card-sub {
-        font-size: 0.78rem;
+        font-size: 0.8rem;
         color: var(--muted);
-        margin-bottom: 0.75rem;
+        margin-bottom: 0.7rem;
       }
 
       .hero-list {
         list-style: none;
-        font-size: 0.8rem;
         display: grid;
         gap: 0.45rem;
-        margin-bottom: 0.9rem;
+        font-size: 0.8rem;
+        margin-bottom: 0.7rem;
       }
 
       .hero-list li {
         display: flex;
-        align-items: flex-start;
         gap: 0.4rem;
+        align-items: flex-start;
       }
 
       .hero-list-bullet {
-        margin-top: 0.13rem;
+        margin-top: 0.17rem;
         width: 6px;
         height: 6px;
         border-radius: 999px;
         background: var(--accent);
       }
 
-      .stat-row {
+      .hero-stats {
         display: flex;
         justify-content: space-between;
-        gap: 0.5rem;
+        gap: 0.6rem;
         font-size: 0.75rem;
-        border-top: 1px dashed rgba(75, 85, 99, 0.8);
-        padding-top: 0.6rem;
-        margin-top: 0.4rem;
+        border-top: 1px dashed rgba(75, 85, 99, 0.9);
+        padding-top: 0.55rem;
+        margin-top: 0.3rem;
       }
 
-      .stat-label {
+      .hero-stats-label {
         color: var(--muted);
       }
 
-      .stat-value {
+      .hero-stats-value {
         color: var(--accent);
         font-weight: 500;
       }
 
       .floating-chip {
         position: absolute;
-        right: -6px;
-        top: 14%;
+        right: -4px;
+        top: 16%;
         padding: 0.35rem 0.7rem;
         border-radius: 999px;
         font-size: 0.72rem;
-        background: rgba(15, 23, 42, 0.95);
+        background: rgba(15, 23, 42, 0.94);
         border: 1px solid rgba(55, 65, 81, 0.9);
         color: var(--muted);
-        display: flex;
+        display: inline-flex;
         align-items: center;
         gap: 0.35rem;
-        transform: translateY(0);
         animation: floatY 6s ease-in-out infinite;
       }
 
@@ -431,34 +439,33 @@
         background: #22c55e;
       }
 
-      .floating-pill-secondary {
+      .floating-note {
         position: absolute;
         left: -4px;
         bottom: 12%;
         padding: 0.4rem 0.7rem;
         border-radius: 0.9rem;
-        background: rgba(15, 23, 42, 0.9);
+        background: rgba(15, 23, 42, 0.94);
         border: 1px solid rgba(75, 85, 99, 0.9);
         font-size: 0.7rem;
         max-width: 190px;
         color: var(--muted);
-        transform: translateY(0);
         animation: floatY 7s ease-in-out infinite alternate;
       }
 
-      :root[data-theme="light"] .floating-pill-secondary {
+      :root[data-theme="light"] .floating-note {
         background: #ffffff;
         border-color: #e5e7eb;
       }
 
-      .floating-pill-secondary strong {
+      .floating-note strong {
         display: block;
         color: var(--text);
         font-weight: 500;
       }
 
       .typing {
-        color: var(--accent);
+        color: var(--accent-alt);
         font-weight: 600;
       }
 
@@ -474,22 +481,43 @@
         }
       }
 
+      .cursor {
+        display: inline-block;
+        width: 1px;
+        height: 1em;
+        background: var(--accent-alt);
+        margin-left: 2px;
+        animation: blink 1s steps(2, start) infinite;
+        vertical-align: middle;
+      }
+
+      @keyframes blink {
+        0%,
+        50% {
+          opacity: 1;
+        }
+        50.01%,
+        100% {
+          opacity: 0;
+        }
+      }
+
       /* Sections */
 
       .section {
         margin-bottom: 2.2rem;
-        padding: 1.4rem 1.2rem;
+        padding: 1.35rem 1.25rem;
         border-radius: 1.1rem;
         background: linear-gradient(
-          145deg,
-          rgba(15, 23, 42, 0.97),
+          140deg,
+          rgba(15, 23, 42, 0.96),
           rgba(17, 24, 39, 0.96)
         );
-        border: 1px solid rgba(31, 41, 55, 0.9);
+        border: 1px solid rgba(31, 41, 55, 0.95);
         box-shadow: 0 24px 55px rgba(15, 23, 42, 0.95);
         opacity: 0;
-        transform: translateY(16px);
-        transition: opacity 0.45s ease, transform 0.45s ease;
+        transform: translateY(18px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
       }
 
       :root[data-theme="light"] .section {
@@ -508,7 +536,7 @@
         align-items: baseline;
         justify-content: space-between;
         gap: 0.75rem;
-        margin-bottom: 0.8rem;
+        margin-bottom: 0.85rem;
       }
 
       .section-title {
@@ -525,16 +553,16 @@
         display: flex;
         flex-wrap: wrap;
         gap: 0.4rem;
-        margin-bottom: 0.8rem;
+        margin-bottom: 0.85rem;
       }
 
       .pill {
         font-size: 0.72rem;
-        padding: 0.18rem 0.55rem;
+        padding: 0.2rem 0.6rem;
         border-radius: 999px;
         border: 1px solid rgba(55, 65, 81, 0.9);
         color: var(--muted);
-        background: rgba(15, 23, 42, 0.85);
+        background: rgba(15, 23, 42, 0.9);
       }
 
       :root[data-theme="light"] .pill {
@@ -560,33 +588,33 @@
       }
 
       .section p + p {
-        margin-top: 0.55rem;
+        margin-top: 0.6rem;
       }
 
       .list {
         list-style: none;
         display: grid;
         gap: 0.55rem;
-        padding-top: 0.3rem;
+        padding-top: 0.35rem;
       }
 
       .list-item {
+        display: flex;
+        gap: 0.4rem;
         font-size: 0.84rem;
         color: var(--muted);
-        display: flex;
         align-items: flex-start;
-        gap: 0.4rem;
       }
 
       .list-bullet {
-        margin-top: 0.18rem;
+        margin-top: 0.2rem;
         width: 7px;
         height: 7px;
         border-radius: 999px;
         background: var(--accent);
       }
 
-      /* Cards */
+      /* Cards and grid */
 
       .card-grid {
         display: grid;
@@ -594,27 +622,15 @@
         gap: 0.9rem;
       }
 
-      @media (max-width: 900px) {
-        .card-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-      }
-
-      @media (max-width: 640px) {
-        .card-grid {
-          grid-template-columns: minmax(0, 1fr);
-        }
-      }
-
       .card {
         border-radius: 0.9rem;
         border: 1px solid rgba(55, 65, 81, 0.9);
+        padding: 0.8rem 0.85rem;
         background: radial-gradient(
           circle at top left,
           rgba(99, 102, 241, 0.12),
           rgba(15, 23, 42, 0.95)
         );
-        padding: 0.75rem 0.8rem;
         font-size: 0.8rem;
       }
 
@@ -624,7 +640,7 @@
       }
 
       .card-title {
-        font-size: 0.85rem;
+        font-size: 0.86rem;
         font-weight: 600;
         margin-bottom: 0.25rem;
       }
@@ -639,16 +655,213 @@
         align-items: center;
         gap: 0.25rem;
         font-size: 0.68rem;
-        color: var(--accent);
-        background: var(--accent-soft);
         border-radius: 999px;
         padding: 0.12rem 0.45rem;
+        background: var(--accent-soft);
+        color: var(--accent);
       }
+
+      /* Playground */
+
+      .playground-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.6fr);
+        gap: 1.4rem;
+      }
+
+      .control-group {
+        display: grid;
+        gap: 0.7rem;
+      }
+
+      .control-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.7rem;
+      }
+
+      .control-label {
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+
+      .control-label span {
+        display: block;
+        font-size: 0.72rem;
+        color: var(--text);
+      }
+
+      .control-input {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .control-input input[type="range"] {
+        width: 100%;
+      }
+
+      .control-value {
+        min-width: 2.5rem;
+        text-align: right;
+        font-size: 0.78rem;
+        color: var(--accent);
+        font-weight: 500;
+      }
+
+      .playground-panel {
+        border-radius: 0.9rem;
+        border: 1px solid rgba(55, 65, 81, 0.95);
+        background: radial-gradient(
+          circle at top left,
+          rgba(96, 165, 250, 0.14),
+          rgba(15, 23, 42, 0.96)
+        );
+        padding: 0.8rem 0.85rem 0.9rem;
+      }
+
+      :root[data-theme="light"] .playground-panel {
+        background: linear-gradient(140deg, #eff6ff, #ffffff);
+        border-color: #d1d5db;
+      }
+
+      .playground-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 0.5rem;
+      }
+
+      .playground-title {
+        font-size: 0.86rem;
+        font-weight: 600;
+      }
+
+      .playground-sub {
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
+
+      .playground-grid {
+        margin-top: 0.4rem;
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 0.3rem;
+        min-height: 160px;
+      }
+
+      .play-cell {
+        border-radius: 0.4rem;
+        border: 1px solid rgba(148, 163, 184, 0.7);
+        background: radial-gradient(
+          circle at 30% 20%,
+          rgba(255, 255, 255, 0.25),
+          rgba(79, 70, 229, 0.8)
+        );
+        opacity: 0.18;
+        transform: translateY(0);
+        transition: opacity 0.25s ease, transform 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+
+      .play-cell.active {
+        opacity: 1;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(56, 189, 248, 0.4);
+      }
+
+      .play-cell.muted {
+        opacity: 0.08;
+        background: radial-gradient(
+          circle at 30% 20%,
+          rgba(156, 163, 175, 0.25),
+          rgba(55, 65, 81, 0.8)
+        );
+      }
+
+      .play-caption {
+        font-size: 0.72rem;
+        color: var(--muted);
+        margin-top: 0.55rem;
+      }
+
+      /* Tabs */
+
+      .tabs {
+        display: flex;
+        gap: 0.35rem;
+        margin-bottom: 0.75rem;
+        border-radius: 999px;
+        padding: 0.12rem;
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(31, 41, 55, 0.95);
+        width: fit-content;
+      }
+
+      :root[data-theme="light"] .tabs {
+        background: #f3f4f6;
+        border-color: #e5e7eb;
+      }
+
+      .tab {
+        font-size: 0.78rem;
+        padding: 0.25rem 0.75rem;
+        border-radius: 999px;
+        cursor: pointer;
+        color: var(--muted);
+      }
+
+      .tab.active {
+        background: #111827;
+        color: #e5e7eb;
+      }
+
+      :root[data-theme="light"] .tab.active {
+        background: #ffffff;
+        color: #111827;
+      }
+
+      .tab-panels {
+        margin-top: 0.4rem;
+        font-size: 0.82rem;
+        color: var(--muted);
+      }
+
+      .tab-panel {
+        display: none;
+      }
+
+      .tab-panel.active {
+        display: block;
+      }
+
+      /* Roadmap */
 
       .roadmap {
         display: grid;
         grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.5fr);
         gap: 1.4rem;
+      }
+
+      .chips-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+        padding-top: 0.3rem;
+      }
+
+      .chip {
+        font-size: 0.7rem;
+        border-radius: 999px;
+        padding: 0.16rem 0.55rem;
+        border: 1px solid rgba(55, 65, 81, 0.95);
+        color: var(--muted);
+      }
+
+      :root[data-theme="light"] .chip {
+        border-color: #e5e7eb;
       }
 
       .timeline {
@@ -670,11 +883,11 @@
         height: 9px;
         border-radius: 999px;
         background: var(--accent);
-        box-shadow: 0 0 12px rgba(129, 140, 248, 0.8);
+        box-shadow: 0 0 12px rgba(129, 140, 248, 0.9);
       }
 
       .timeline-title {
-        font-size: 0.85rem;
+        font-size: 0.86rem;
         font-weight: 600;
         margin-bottom: 0.1rem;
       }
@@ -685,97 +898,159 @@
         margin-bottom: 0.25rem;
       }
 
-      .chips-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.35rem;
-        padding-top: 0.3rem;
+      .timeline-body {
+        font-size: 0.82rem;
+        color: var(--muted);
       }
 
-      .chip {
+      /* Command palette */
+
+      .palette-hint {
+        font-size: 0.76rem;
+        color: var(--muted);
+        margin-top: 0.6rem;
+      }
+
+      .palette-hint kbd {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.1rem 0.4rem;
+        border-radius: 0.3rem;
+        border: 1px solid rgba(55, 65, 81, 0.9);
         font-size: 0.7rem;
-        border-radius: 999px;
-        padding: 0.15rem 0.55rem;
-        border: 1px solid rgba(55, 65, 81, 0.9);
-        color: var(--muted);
-      }
-
-      :root[data-theme="light"] .chip {
-        border-color: #e5e7eb;
-      }
-
-      /* Contact */
-
-      .contact-grid {
-        display: grid;
-        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.3fr);
-        gap: 1.2rem;
-      }
-
-      .input-row {
-        display: grid;
-        gap: 0.6rem;
-      }
-
-      .label {
-        font-size: 0.75rem;
-        color: var(--muted);
-      }
-
-      .fake-input,
-      .fake-textarea {
-        width: 100%;
-        border-radius: 0.7rem;
-        border: 1px solid rgba(55, 65, 81, 0.9);
-        padding: 0.5rem 0.65rem;
-        font-size: 0.8rem;
-        color: var(--muted);
         background: rgba(15, 23, 42, 0.95);
       }
 
-      :root[data-theme="light"] .fake-input,
-      :root[data-theme="light"] .fake-textarea {
+      :root[data-theme="light"] .palette-hint kbd {
         background: #f9fafb;
         border-color: #e5e7eb;
       }
 
-      .fake-textarea {
-        min-height: 90px;
+      .palette-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.7);
+        display: none;
+        align-items: flex-start;
+        justify-content: center;
+        padding-top: 12vh;
+        z-index: 50;
       }
 
-      .helper-text {
+      .palette-overlay.open {
+        display: flex;
+      }
+
+      .palette {
+        width: min(540px, 100% - 2.5rem);
+        background: var(--bg-softer);
+        border-radius: 0.9rem;
+        border: 1px solid rgba(31, 41, 55, 0.95);
+        box-shadow: 0 26px 60px rgba(15, 23, 42, 0.95);
+        padding: 0.8rem 0.85rem 0.7rem;
+      }
+
+      :root[data-theme="light"] .palette {
+        background: #ffffff;
+        border-color: #e5e7eb;
+        box-shadow: 0 24px 50px rgba(148, 163, 184, 0.65);
+      }
+
+      .palette-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.55rem;
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+
+      .palette-title {
+        font-weight: 500;
+        color: var(--text);
+      }
+
+      .palette-search {
+        width: 100%;
+        border-radius: 0.55rem;
+        border: 1px solid rgba(55, 65, 81, 0.95);
+        padding: 0.4rem 0.6rem;
+        font-size: 0.8rem;
+        background: var(--bg-soft);
+        color: var(--text);
+        outline: none;
+      }
+
+      :root[data-theme="light"] .palette-search {
+        background: #f9fafb;
+        border-color: #e5e7eb;
+      }
+
+      .palette-list {
+        margin-top: 0.6rem;
+        border-radius: 0.7rem;
+        border: 1px solid rgba(31, 41, 55, 0.95);
+        background: rgba(15, 23, 42, 0.9);
+        max-height: 230px;
+        overflow: auto;
+      }
+
+      :root[data-theme="light"] .palette-list {
+        background: #f9fafb;
+        border-color: #e5e7eb;
+      }
+
+      .palette-item {
+        padding: 0.45rem 0.7rem;
+        font-size: 0.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        cursor: pointer;
+      }
+
+      .palette-item:hover,
+      .palette-item.active {
+        background: rgba(37, 99, 235, 0.18);
+      }
+
+      :root[data-theme="light"] .palette-item:hover,
+      :root[data-theme="light"] .palette-item.active {
+        background: rgba(191, 219, 254, 0.9);
+      }
+
+      .palette-item-main {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+      }
+
+      .palette-item-label {
+        color: var(--text);
+      }
+
+      .palette-item-desc {
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
+
+      .palette-shortcut {
         font-size: 0.7rem;
         color: var(--muted);
-        margin-top: 0.3rem;
       }
 
-      .note-card {
-        border-radius: 0.9rem;
-        border: 1px dashed rgba(75, 85, 99, 0.9);
-        padding: 0.8rem 0.8rem 0.7rem;
-        font-size: 0.8rem;
-        background: rgba(15, 23, 42, 0.9);
-      }
-
-      :root[data-theme="light"] .note-card {
-        background: #f9fafb;
-        border-style: solid;
-        border-color: #e5e7eb;
-      }
-
-      .note-card strong {
-        display: block;
-        margin-bottom: 0.3rem;
-      }
+      /* Footer */
 
       .footer {
-        margin-top: 1.2rem;
+        margin-top: 1.3rem;
         padding-top: 0.8rem;
-        border-top: 1px solid rgba(31, 41, 55, 0.9);
+        border-top: 1px solid rgba(31, 41, 55, 0.95);
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-        gap: 0.6rem;
+        gap: 0.7rem;
         font-size: 0.75rem;
         color: var(--muted);
       }
@@ -793,29 +1068,6 @@
         text-decoration: underline;
       }
 
-      /* Typewriter cursor */
-
-      .cursor {
-        display: inline-block;
-        width: 1px;
-        height: 1em;
-        background: var(--accent);
-        margin-left: 2px;
-        animation: blink 1s steps(2, start) infinite;
-        vertical-align: middle;
-      }
-
-      @keyframes blink {
-        0%,
-        50% {
-          opacity: 1;
-        }
-        50.01%,
-        100% {
-          opacity: 0;
-        }
-      }
-
       /* Responsive */
 
       @media (max-width: 880px) {
@@ -828,11 +1080,12 @@
         }
 
         .hero-card {
-          margin-bottom: 0.5rem;
+          margin-bottom: 0.6rem;
         }
 
-        .floating-chip {
-          top: 8%;
+        .playground-layout,
+        .roadmap {
+          grid-template-columns: minmax(0, 1fr);
         }
       }
 
@@ -840,7 +1093,7 @@
         .nav-inner {
           flex-direction: column;
           align-items: flex-start;
-          gap: 0.5rem;
+          gap: 0.6rem;
         }
 
         .nav-links {
@@ -852,14 +1105,16 @@
           padding-bottom: 1.4rem;
         }
 
-        .split,
-        .roadmap,
-        .contact-grid {
+        .split {
           grid-template-columns: minmax(0, 1fr);
+        }
+
+        .card-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
       }
 
-      @media (max-width: 480px) {
+      @media (max-width: 520px) {
         .page {
           padding-inline: 1rem;
         }
@@ -868,35 +1123,35 @@
           padding-inline: 1rem;
         }
 
-        .hero-meta {
-          flex-direction: column;
+        .card-grid {
+          grid-template-columns: minmax(0, 1fr);
         }
 
-        .nav-links {
-          flex-wrap: wrap;
-          gap: 0.5rem;
+        .hero-meta {
+          flex-direction: column;
         }
       }
     </style>
   </head>
 
-  <body>
+  <body id="top">
     <div class="page">
-      <!-- Nav -->
+      <!-- Navigation -->
       <header class="nav">
         <div class="nav-inner">
           <div class="nav-left">
             <div class="nav-logo"></div>
             <div>
-              <div class="nav-title">Ryan's AI Lab</div>
-              <div class="nav-subtitle">Ideas first. Code with AI.</div>
+              <div class="nav-title">First GitHub Sandbox</div>
+              <div class="nav-sub">One file. Many experiments.</div>
             </div>
           </div>
           <div class="nav-links">
             <div class="nav-link" data-scroll="#about">About</div>
-            <div class="nav-link" data-scroll="#projects">Projects</div>
+            <div class="nav-link" data-scroll="#playground">Playground</div>
+            <div class="nav-link" data-scroll="#gallery">Gallery</div>
             <div class="nav-link" data-scroll="#roadmap">Roadmap</div>
-            <div class="nav-link" data-scroll="#contact">Contact</div>
+            <div class="nav-link" data-scroll="#palette">Shortcuts</div>
             <button id="themeToggle" class="theme-toggle">
               <span class="theme-dot"></span>
               <span id="themeLabel">Dark mode</span>
@@ -908,100 +1163,104 @@
       <!-- Hero -->
       <section class="hero">
         <div>
-          <div class="badge">
-            <span class="badge-dot"></span>
+          <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
             Live from GitHub Pages
           </div>
           <h1 class="hero-title">
-            Turning ideas into
+            A single file
             <span class="hero-highlight typing" id="typingText"></span>
             <span class="cursor"></span>
           </h1>
-          <p class="hero-subtitle">
-            This is Ryan's first GitHub project. It is a training ground where
-            <strong>AI writes the code</strong> and Ryan focuses on
-            <strong>ideas, systems, and strategy</strong>.
+          <p class="hero-sub">
+            This sandbox is a first project template that shows what a single
+            <code>index.html</code>
+            file can do. It uses simple HTML, CSS and JavaScript with no build
+            step and no framework.
           </p>
 
           <div class="hero-cta-row">
-            <button class="btn-primary" data-scroll="#projects">
-              View sample projects
+            <button class="btn" data-scroll="#playground">
+              Try the interactive playground
             </button>
-            <button class="btn-outline" data-scroll="#roadmap">
-              See learning roadmap
+            <button class="btn-ghost" data-scroll="#gallery">
+              Explore components
             </button>
           </div>
 
           <div class="hero-meta">
-            <div class="hero-meta-item">
-              <span>Current focus</span>
-              AI assisted tools for content, data, and automation.
+            <div>
+              <span>Purpose</span>
+              Learn GitHub and web basics with a visual example that can be
+              customized or extended at any time.
             </div>
-            <div class="hero-meta-item">
-              <span>Tech stack</span>
-              ChatGPT, GitHub, HTML, CSS, JavaScript.
+            <div>
+              <span>Tech used</span>
+              HTML, CSS, JavaScript, smooth scrolling, theme toggle,
+              IntersectionObserver and a command palette.
             </div>
           </div>
         </div>
 
         <div class="hero-right">
           <div class="hero-card">
-            <div class="orbit"></div>
+            <div class="hero-orbit"></div>
             <div class="hero-pill">
               <div class="hero-pill-dot"></div>
-              First GitHub site
+              First project template
             </div>
             <div class="hero-card-title">
-              AI assisted creator operating system
+              What this sandbox demonstrates
             </div>
             <div class="hero-card-sub">
-              A single place for experiments that support history content,
-              Bible content, supplements, and future products.
+              A simple layout that behaves like a mini product site. Everything
+              is contained in one file and can be read or edited directly in
+              GitHub.
             </div>
             <ul class="hero-list">
               <li>
                 <div class="hero-list-bullet"></div>
                 <div>
-                  Use AI to generate tools that automate parts of the content
-                  pipeline.
+                  Interactive playground that reacts to sliders and buttons in
+                  real time.
                 </div>
               </li>
               <li>
                 <div class="hero-list-bullet"></div>
                 <div>
-                  Store everything in GitHub so projects are versioned,
-                  organized, and easy to improve.
+                  A component gallery section that feels like UI snippets for
+                  future projects.
                 </div>
               </li>
               <li>
                 <div class="hero-list-bullet"></div>
                 <div>
-                  Ship small experiments fast instead of waiting for a perfect
-                  product.
+                  A command palette inspired by modern React UI libraries,
+                  opened with a keyboard shortcut.
                 </div>
               </li>
             </ul>
-            <div class="stat-row">
+            <div class="hero-stats">
               <div>
-                <div class="stat-label">Mode</div>
-                <div class="stat-value">Learning in public</div>
+                <div class="hero-stats-label">Files in this site</div>
+                <div class="hero-stats-value">1 HTML file</div>
               </div>
               <div>
-                <div class="stat-label">Owned projects</div>
-                <div class="stat-value">This is Project 001</div>
+                <div class="hero-stats-label">External tools</div>
+                <div class="hero-stats-value">Browser only</div>
               </div>
             </div>
           </div>
 
           <div class="floating-chip">
             <span class="floating-chip-dot"></span>
-            Built with AI guidance
+            Copy, remix, extend
           </div>
 
-          <div class="floating-pill-secondary">
-            <strong>Idea first. Code second.</strong>
-            The long term advantage comes from better ideas and systems, not
-            just more code.
+          <div class="floating-note">
+            <strong>Idea first, code later.</strong>
+            Start with this layout, then let AI or manual edits turn it into
+            something unique.
           </div>
         </div>
       </section>
@@ -1009,29 +1268,29 @@
       <!-- About -->
       <section id="about" class="section">
         <div class="section-header">
-          <h2 class="section-title">About this lab</h2>
+          <h2 class="section-title">About this sandbox</h2>
           <div class="section-tagline">
-            A place to learn GitHub and ship experiments with AI.
+            A general purpose starter that stays in a single file.
           </div>
         </div>
 
         <div class="split">
           <div>
             <div class="pill-row">
-              <div class="pill highlight">AI assisted development</div>
-              <div class="pill">Zero previous Git experience</div>
-              <div class="pill">Content first mindset</div>
+              <div class="pill highlight">No framework required</div>
+              <div class="pill">All in one file</div>
+              <div class="pill">Works with GitHub Pages</div>
             </div>
             <p>
-              This project started as a simple "Hello World" site. It now acts
-              as a small hub that can grow into something more serious as Ryan
-              learns GitHub, version control, and basic web concepts.
+              The goal of this project is to show how far a basic GitHub Pages
+              setup can go before any complex tooling appears. There is no
+              build command, bundler or dependency list. The browser handles
+              everything.
             </p>
             <p>
-              The rule is simple. Ryan describes the idea, large language
-              models write the code, and GitHub stores the work in one reliable
-              place. No need to become a traditional software engineer in
-              order to ship useful tools.
+              This makes the sandbox a safe place for experiments. It can hold
+              notes, UI sketches, interactive elements and ideas that might
+              later be turned into separate projects or real applications.
             </p>
           </div>
           <div>
@@ -1039,23 +1298,26 @@
               <li class="list-item">
                 <div class="list-bullet"></div>
                 <div>
-                  <strong>Goal 1.</strong> Use this repo as a sandbox for AI
-                  generated tools that support TikTok, YouTube, and book
-                  projects.
+                  <strong>Readable structure.</strong>
+                  The page is split into sections such as hero, about,
+                  playground, gallery and roadmap, so it is easy to navigate the
+                  code.
                 </div>
               </li>
               <li class="list-item">
                 <div class="list-bullet"></div>
                 <div>
-                  <strong>Goal 2.</strong> Build the habit of shipping small
-                  improvements often instead of waiting for big launches.
+                  <strong>Good habits.</strong>
+                  Theme toggling, keyboard shortcuts and small animations are
+                  added to hint at practices used in more advanced projects.
                 </div>
               </li>
               <li class="list-item">
                 <div class="list-bullet"></div>
                 <div>
-                  <strong>Goal 3.</strong> Learn just enough HTML, CSS, and
-                  JavaScript to understand what AI is doing and to tweak it.
+                  <strong>Future friendly.</strong>
+                  Any section can be removed, duplicated or rewritten for
+                  another idea without touching build tools.
                 </div>
               </li>
             </ul>
@@ -1063,85 +1325,170 @@
         </div>
       </section>
 
-      <!-- Projects -->
-      <section id="projects" class="section">
+      <!-- Interactive playground -->
+      <section id="playground" class="section">
         <div class="section-header">
-          <h2 class="section-title">Sample project ideas</h2>
+          <h2 class="section-title">Interactive playground</h2>
           <div class="section-tagline">
-            Simple things AI can build that actually support the content
-            business.
+            Sliders and buttons that reshape a grid in real time.
+          </div>
+        </div>
+
+        <div class="playground-layout">
+          <div class="control-group">
+            <div class="tabs" id="modeTabs">
+              <div class="tab active" data-mode="focus">Focus mode</div>
+              <div class="tab" data-mode="wave">Wave mode</div>
+              <div class="tab" data-mode="random">Random mode</div>
+            </div>
+            <div class="tab-panels">
+              <div class="tab-panel active" data-panel="focus">
+                In focus mode a small group of cells stays bright and everything
+                else fades back. This feels similar to highlighting the current
+                task while the rest of the work stays in context.
+              </div>
+              <div class="tab-panel" data-panel="wave">
+                Wave mode animates brightness across the grid. This imitates a
+                simple loading or activity indicator that could sit behind
+                content.
+              </div>
+              <div class="tab-panel" data-panel="random">
+                Random mode treats the grid like a tiny particle field. Cells
+                switch on and off at random which can create subtle motion for a
+                background.
+              </div>
+            </div>
+
+            <div class="control-row">
+              <div class="control-label">
+                <span>Intensity</span>
+                How many cells are active.
+              </div>
+              <div class="control-input">
+                <input
+                  id="intensitySlider"
+                  type="range"
+                  min="2"
+                  max="24"
+                  value="12"
+                />
+                <div id="intensityValue" class="control-value">12</div>
+              </div>
+            </div>
+
+            <div class="control-row">
+              <div class="control-label">
+                <span>Speed</span>
+                How often the pattern updates.
+              </div>
+              <div class="control-input">
+                <input
+                  id="speedSlider"
+                  type="range"
+                  min="1"
+                  max="10"
+                  value="5"
+                />
+                <div id="speedValue" class="control-value">5</div>
+              </div>
+            </div>
+
+            <div class="control-row">
+              <div class="control-label">
+                <span>Reset pattern</span>
+                Start again from a clean state.
+              </div>
+              <div class="control-input">
+                <button id="resetButton" class="btn-ghost">
+                  Reset grid
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="playground-panel">
+            <div class="playground-header">
+              <div class="playground-title">Grid visualizer</div>
+              <div class="playground-sub">
+                All logic runs in a few lines of JavaScript.
+              </div>
+            </div>
+            <div id="playgroundGrid" class="playground-grid"></div>
+            <p class="play-caption">
+              This kind of panel can hold anything: generated charts, status
+              boards, dashboards or small utilities. The important part is that
+              it lives in version control and can evolve over time.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Component gallery -->
+      <section id="gallery" class="section">
+        <div class="section-header">
+          <h2 class="section-title">Component gallery</h2>
+          <div class="section-tagline">
+            A few UI ideas inspired by modern component libraries.
           </div>
         </div>
 
         <div class="card-grid">
           <article class="card">
-            <div class="card-title">Content schedule tracker</div>
+            <div class="card-title">Status cards</div>
             <div class="card-body">
-              A single page that lists history, Bible, and supplement videos
-              for the week. AI can generate the HTML table. Ryan updates ideas
-              and status.
+              Small boxes that show quick facts or metrics. These can be wired
+              up to real data later or kept as summaries for projects and
+              experiments.
             </div>
-            <div class="card-tag">
-              <span>Idea stage</span>
-            </div>
+            <div class="card-tag">Pattern: overview tiles</div>
           </article>
 
           <article class="card">
-            <div class="card-title">Hook generator playground</div>
+            <div class="card-title">Timeline blocks</div>
             <div class="card-body">
-              A tiny page where Ryan pastes a topic and AI suggests hooks, with
-              buttons to copy the best ones into the script pipeline.
+              Vertical lists that mark important checkpoints. Useful for
+              tracking learning stages, milestones or experiments that are done,
+              running or planned.
             </div>
-            <div class="card-tag">
-              <span>Prototype inside ChatGPT</span>
-            </div>
+            <div class="card-tag">Pattern: vertical timeline</div>
           </article>
 
           <article class="card">
-            <div class="card-title">Series tracker</div>
+            <div class="card-title">Tabbed sections</div>
             <div class="card-body">
-              Track multi part history or Bible series. Which episodes are
-              planned, recorded, edited, and posted. All stored as a simple
-              JSON file that AI reads and writes.
+              Tabs reduce clutter by grouping related content in the same
+              space. Only layout and text change when the active tab changes.
             </div>
-            <div class="card-tag">
-              <span>Planned for later</span>
-            </div>
+            <div class="card-tag">Pattern: content switcher</div>
           </article>
 
           <article class="card">
-            <div class="card-title">Reading log</div>
+            <div class="card-title">Command palette</div>
             <div class="card-body">
-              A minimal reading tracker for books, papers, and sources that
-              feed into scripts and books. Each entry can have tags and key
-              ideas.
+              A floating panel that can jump to sections, toggle themes or run
+              simple commands. Many modern tools use this style of quick
+              launcher.
             </div>
-            <div class="card-tag">
-              <span>Low tech. Very useful.</span>
-            </div>
+            <div class="card-tag">Pattern: quick command</div>
           </article>
 
           <article class="card">
-            <div class="card-title">Experiment dashboard</div>
+            <div class="card-title">Helper notes</div>
             <div class="card-body">
-              A page that lists current experiments. For example posting
-              schedules, new thumbnail styles, or script structures, along with
-              dates and quick notes.
+              Highlighted text blocks that record decisions, rules or ideas.
+              Placing reasoning near the UI can help when returning to a project
+              later.
             </div>
-            <div class="card-tag">
-              <span>Future dashboard</span>
-            </div>
+            <div class="card-tag">Pattern: callout card</div>
           </article>
 
           <article class="card">
-            <div class="card-title">Idea inbox</div>
+            <div class="card-title">Animated highlights</div>
             <div class="card-body">
-              A simple list of raw ideas that AI can sort, group, and turn into
-              scripts. Stored in a text or JSON file inside the repo.
+              Subtle motion and glow effects keep a page feeling alive without
+              distracting from the content. Everything here uses only CSS.
             </div>
-            <div class="card-tag">
-              <span>Always growing</span>
-            </div>
+            <div class="card-tag">Pattern: decorative motion</div>
           </article>
         </div>
       </section>
@@ -1149,135 +1496,123 @@
       <!-- Roadmap -->
       <section id="roadmap" class="section">
         <div class="section-header">
-          <h2 class="section-title">GitHub learning roadmap</h2>
+          <h2 class="section-title">Suggested learning roadmap</h2>
           <div class="section-tagline">
-            From first commit to a small library of AI built tools.
+            A simple path that starts at this file and grows from there.
           </div>
         </div>
 
         <div class="roadmap">
           <div>
             <p>
-              The plan is to keep things simple. Learn skills only when they
-              are needed. Each step is something Ryan can ask AI to help with.
+              The sandbox is meant to be a safe place for small steps. It is ok
+              to treat it as a notebook that just happens to live on the web.
             </p>
             <p>
-              GitHub becomes the home for all experiments. Over time this can
-              turn into a real portfolio of tools that support content, books,
-              and business systems.
+              Nothing here requires deep knowledge of JavaScript or design.
+              Curiosity and experimentation are enough to start.
             </p>
             <div class="chips-row">
-              <div class="chip">Keep everything in repos</div>
-              <div class="chip">Use Git as history</div>
-              <div class="chip">Ship small and often</div>
-              <div class="chip">AI first approach</div>
+              <div class="chip">Commit small changes</div>
+              <div class="chip">Read the HTML structure</div>
+              <div class="chip">Modify text and colors</div>
+              <div class="chip">Add a new card or section</div>
             </div>
           </div>
           <div class="timeline">
             <div class="timeline-item">
               <div class="timeline-dot"></div>
-              <div class="timeline-title">Phase 1 — Web basics</div>
-              <div class="timeline-meta">Now to 2 weeks</div>
+              <div class="timeline-title">Step 1 - Understand layout</div>
+              <div class="timeline-meta">Short term</div>
               <div class="timeline-body">
-                Use AI to modify this page, add sections, and style. Learn how
-                HTML, CSS, and JavaScript connect. Practice committing small
-                improvements.
+                Read the hero, section and card markup to see how the layout is
+                built. Try changing one heading or paragraph and commit the
+                update.
               </div>
             </div>
 
             <div class="timeline-item">
               <div class="timeline-dot"></div>
-              <div class="timeline-title">Phase 2 — Local setup</div>
-              <div class="timeline-meta">When ready</div>
+              <div class="timeline-title">Step 2 - Adjust styles</div>
+              <div class="timeline-meta">Next stage</div>
               <div class="timeline-body">
-                Connect GitHub to a local editor like VS Code. Let AI generate
-                files on the laptop, then push them here. This unlocks larger
-                projects.
+                Modify colors, spacing or fonts inside the CSS. Small tweaks can
+                create a very different feel while keeping the structure the
+                same.
               </div>
             </div>
 
             <div class="timeline-item">
               <div class="timeline-dot"></div>
-              <div class="timeline-title">Phase 3 — Real utilities</div>
-              <div class="timeline-meta">Next 3 to 6 months</div>
+              <div class="timeline-title">Step 3 - Explore scripts</div>
+              <div class="timeline-meta">When comfortable</div>
               <div class="timeline-body">
-                Build small utilities that automate parts of the content
-                workflow. Things like trackers, dashboards, or prompt helpers.
+                Look at the script block at the end of the file. Follow how
+                event listeners connect to sections such as the playground and
+                command palette.
               </div>
             </div>
 
             <div class="timeline-item">
               <div class="timeline-dot"></div>
-              <div class="timeline-title">Phase 4 — Products</div>
-              <div class="timeline-meta">Long term</div>
+              <div class="timeline-title">Step 4 - Branch out</div>
+              <div class="timeline-meta">Later</div>
               <div class="timeline-body">
-                Turn the best internal tools into products. Offer them to other
-                creators or students. GitHub becomes the foundation of a real
-                software layer under the content business.
+                Copy this file into a new repository for a completely different
+                idea. Replace content step by step until it fits the new
+                purpose.
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Contact / notes -->
-      <section id="contact" class="section">
+      <!-- Command palette section -->
+      <section id="palette" class="section">
         <div class="section-header">
-          <h2 class="section-title">Contact and notes</h2>
+          <h2 class="section-title">Command palette and shortcuts</h2>
           <div class="section-tagline">
-            This form is a mockup. Perfect for future automation.
+            A simple overlay inspired by modern editor palettes.
           </div>
         </div>
 
-        <div class="contact-grid">
-          <div class="input-row">
-            <div>
-              <div class="label">Name</div>
-              <div class="fake-input">
-                Example: future collaborator, sponsor, or viewer
-              </div>
-            </div>
-            <div>
-              <div class="label">Reason for reaching out</div>
-              <div class="fake-input">
-                Short description. In a real version this would send data to a
-                backend or an email.
-              </div>
-            </div>
-            <div>
-              <div class="label">Message</div>
-              <div class="fake-textarea">
-                This repo has no backend yet. In the future AI could add a
-                simple server or connect to a service so these messages
-                actually arrive somewhere.
-              </div>
-              <div class="helper-text">
-                For now this is just a visual placeholder. Which is fine. The
-                priority is learning GitHub and structure first.
-              </div>
-            </div>
+        <div class="split">
+          <div>
+            <p>
+              The command palette is a small overlay that can trigger common
+              actions. It appears on top of the page, listens for input and
+              reacts to a selected item.
+            </p>
+            <p>
+              This version can jump to sections or toggle the theme. It also
+              shows how keyboard shortcuts can be wired into the page without
+              extra libraries.
+            </p>
+            <p class="palette-hint">
+              Press
+              <kbd>Ctrl</kbd>
+              +
+              <kbd>K</kbd>
+              on Windows or
+              <kbd>⌘</kbd>
+              +
+              <kbd>K</kbd>
+              on macOS to open the palette. Use arrow keys and Enter or click
+              with the mouse.
+            </p>
           </div>
           <div>
-            <div class="note-card">
-              <strong>How this page was built</strong>
-              <p>
-                Ryan asked AI to "make the most advanced single page site
-                possible without creating extra files". Everything here lives in
-                one
-                <code>index.html</code>
-                file. That is all GitHub Pages needs.
-              </p>
-              <p>
-                The next step is to treat this like a living document. Add new
-                sections, track experiments, and let AI improve the visuals
-                over time. Every update is stored as a commit so nothing is
-                wasted.
-              </p>
-              <p>
-                This gives Ryan a deeply practical way to learn GitHub by doing
-                real work instead of abstract exercises.
-              </p>
+            <div class="pill-row">
+              <div class="pill highlight">Keyboard driven</div>
+              <div class="pill">Searchable commands</div>
+              <div class="pill">Section navigation</div>
+              <div class="pill">Theme toggle entry</div>
             </div>
+            <p>
+              In more advanced projects a command palette can trigger API
+              calls, open dialogs or run whole workflows. Here it stays simple
+              and focused on navigation and theme control.
+            </p>
           </div>
         </div>
       </section>
@@ -1285,7 +1620,8 @@
       <!-- Footer -->
       <footer class="footer">
         <div>
-          <span id="yearSpan"></span> • Ryan's AI Lab • Hosted on GitHub Pages
+          <span id="yearSpan"></span>
+          • First GitHub Sandbox • Hosted with GitHub Pages
         </div>
         <div>
           <span class="back-to-top" data-scroll="#top">Back to top</span>
@@ -1293,10 +1629,24 @@
       </footer>
     </div>
 
-    <script>
-      // Set top anchor target
-      document.body.id = "top";
+    <!-- Command palette overlay -->
+    <div id="paletteOverlay" class="palette-overlay" aria-hidden="true">
+      <div class="palette" role="dialog" aria-modal="true">
+        <div class="palette-header">
+          <div class="palette-title">Command palette</div>
+          <div>Type to filter actions</div>
+        </div>
+        <input
+          id="paletteSearch"
+          class="palette-search"
+          type="text"
+          placeholder="Jump to section or run an action..."
+        />
+        <div id="paletteList" class="palette-list"></div>
+      </div>
+    </div>
 
+    <script>
       // Theme handling
       const root = document.documentElement;
       const themeToggle = document.getElementById("themeToggle");
@@ -1304,14 +1654,10 @@
 
       function applyTheme(theme) {
         root.setAttribute("data-theme", theme);
-        if (theme === "light") {
-          themeLabel.textContent = "Light mode";
-        } else {
-          themeLabel.textContent = "Dark mode";
-        }
+        themeLabel.textContent = theme === "light" ? "Light mode" : "Dark mode";
       }
 
-      const storedTheme = localStorage.getItem("ryan-theme");
+      const storedTheme = localStorage.getItem("sandbox-theme");
       if (storedTheme === "light" || storedTheme === "dark") {
         applyTheme(storedTheme);
       } else {
@@ -1319,22 +1665,20 @@
       }
 
       themeToggle.addEventListener("click", () => {
-        const current =
-          root.getAttribute("data-theme") === "dark" ? "dark" : "light";
-        const next = current === "dark" ? "light" : "dark";
+        const current = root.getAttribute("data-theme") === "light"
+          ? "light"
+          : "dark";
+        const next = current === "light" ? "dark" : "light";
         applyTheme(next);
-        localStorage.setItem("ryan-theme", next);
+        localStorage.setItem("sandbox-theme", next);
       });
 
-      // Smooth scrolling for nav links and buttons
+      // Smooth scrolling
       function smoothScrollTo(target) {
         const el = document.querySelector(target);
         if (!el) return;
         const y = el.getBoundingClientRect().top + window.scrollY - 76;
-        window.scrollTo({
-          top: y,
-          behavior: "smooth",
-        });
+        window.scrollTo({ top: y, behavior: "smooth" });
       }
 
       document.querySelectorAll("[data-scroll]").forEach((el) => {
@@ -1344,12 +1688,12 @@
         });
       });
 
-      // Typewriter effect for hero
+      // Typewriter effect
       const phrases = [
-        "systems that scale",
-        "tools with AI help",
-        "experiments in public",
-        "content engines",
+        "that behaves like a mini app",
+        "packed with UI patterns",
+        "for learning GitHub in practice",
+        "that can become anything later",
       ];
       let phraseIndex = 0;
       let charIndex = 0;
@@ -1374,7 +1718,7 @@
             phraseIndex = (phraseIndex + 1) % phrases.length;
           }
         }
-        const delay = deleting ? 40 : 80;
+        const delay = deleting ? 45 : 80;
         setTimeout(typeLoop, delay);
       }
       typeLoop();
@@ -1389,18 +1733,302 @@
             }
           });
         },
-        { threshold: 0.16 }
+        { threshold: 0.15 }
       );
 
       document.querySelectorAll(".section").forEach((section) => {
         observer.observe(section);
       });
 
+      // Playground logic
+      const gridEl = document.getElementById("playgroundGrid");
+      const intensitySlider = document.getElementById("intensitySlider");
+      const speedSlider = document.getElementById("speedSlider");
+      const intensityValue = document.getElementById("intensityValue");
+      const speedValue = document.getElementById("speedValue");
+      const resetButton = document.getElementById("resetButton");
+      const modeTabs = document.getElementById("modeTabs");
+
+      const totalCells = 24;
+      const cells = [];
+
+      for (let i = 0; i < totalCells; i++) {
+        const cell = document.createElement("div");
+        cell.className = "play-cell muted";
+        gridEl.appendChild(cell);
+        cells.push(cell);
+      }
+
+      let mode = "focus";
+      let tick = 0;
+      let timerId = null;
+
+      function updateLabels() {
+        intensityValue.textContent = intensitySlider.value;
+        speedValue.textContent = speedSlider.value;
+      }
+
+      function clearCells() {
+        cells.forEach((cell) => {
+          cell.classList.remove("active");
+          cell.classList.add("muted");
+        });
+      }
+
+      function setActiveIndices(indices) {
+        clearCells();
+        indices.forEach((i) => {
+          const cell = cells[i];
+          if (!cell) return;
+          cell.classList.remove("muted");
+          cell.classList.add("active");
+        });
+      }
+
+      function computeIndices() {
+        const count = Number(intensitySlider.value);
+        const indices = [];
+        if (mode === "focus") {
+          const center = Math.floor(totalCells / 2);
+          const half = Math.floor(count / 2);
+          for (let i = center - half; i < center - half + count; i++) {
+            if (i >= 0 && i < totalCells) indices.push(i);
+          }
+        } else if (mode === "wave") {
+          const offset = tick % totalCells;
+          for (let i = 0; i < count; i++) {
+            indices.push((offset + i) % totalCells);
+          }
+        } else if (mode === "random") {
+          const set = new Set();
+          while (set.size < Math.min(count, totalCells)) {
+            set.add(Math.floor(Math.random() * totalCells));
+          }
+          set.forEach((idx) => indices.push(idx));
+        }
+        return indices;
+      }
+
+      function step() {
+        tick++;
+        const indices = computeIndices();
+        setActiveIndices(indices);
+      }
+
+      function restartTimer() {
+        if (timerId) clearInterval(timerId);
+        const speed = Number(speedSlider.value);
+        const interval = 1400 - speed * 120;
+        timerId = setInterval(step, interval);
+      }
+
+      intensitySlider.addEventListener("input", () => {
+        updateLabels();
+        step();
+      });
+
+      speedSlider.addEventListener("input", () => {
+        updateLabels();
+        restartTimer();
+      });
+
+      resetButton.addEventListener("click", () => {
+        tick = 0;
+        clearCells();
+        step();
+      });
+
+      modeTabs.addEventListener("click", (event) => {
+        const tab = event.target.closest(".tab");
+        if (!tab) return;
+        const newMode = tab.getAttribute("data-mode");
+        if (!newMode || newMode === mode) return;
+        mode = newMode;
+
+        modeTabs.querySelectorAll(".tab").forEach((t) => {
+          t.classList.toggle("active", t === tab);
+        });
+
+        document.querySelectorAll(".tab-panel").forEach((panel) => {
+          const panelMode = panel.getAttribute("data-panel");
+          panel.classList.toggle("active", panelMode === mode);
+        });
+
+        step();
+      });
+
+      updateLabels();
+      step();
+      restartTimer();
+
+      // Command palette data
+      const paletteOverlay = document.getElementById("paletteOverlay");
+      const paletteSearch = document.getElementById("paletteSearch");
+      const paletteList = document.getElementById("paletteList");
+
+      const commands = [
+        {
+          label: "Go to About section",
+          description: "Scrolls to the About section",
+          action: () => smoothScrollTo("#about"),
+        },
+        {
+          label: "Go to Playground section",
+          description: "Scrolls to the interactive grid",
+          action: () => smoothScrollTo("#playground"),
+        },
+        {
+          label: "Go to Gallery section",
+          description: "Scrolls to the component gallery",
+          action: () => smoothScrollTo("#gallery"),
+        },
+        {
+          label: "Go to Roadmap section",
+          description: "Scrolls to the roadmap",
+          action: () => smoothScrollTo("#roadmap"),
+        },
+        {
+          label: "Toggle theme",
+          description: "Switch between light and dark mode",
+          action: () => {
+            const current = root.getAttribute("data-theme") === "light"
+              ? "light"
+              : "dark";
+            const next = current === "light" ? "dark" : "light";
+            applyTheme(next);
+            localStorage.setItem("sandbox-theme", next);
+          },
+        },
+        {
+          label: "Scroll to top",
+          description: "Back to the start of the page",
+          action: () => smoothScrollTo("#top"),
+        },
+      ];
+
+      let filteredCommands = commands.slice();
+      let activeIndex = 0;
+
+      function renderPalette() {
+        paletteList.innerHTML = "";
+        if (filteredCommands.length === 0) {
+          const empty = document.createElement("div");
+          empty.className = "palette-item";
+          empty.innerHTML =
+            '<div class="palette-item-main"><div class="palette-item-label">No matches</div><div class="palette-item-desc">Try another word or clear the search text.</div></div>';
+          paletteList.appendChild(empty);
+          return;
+        }
+
+        filteredCommands.forEach((cmd, index) => {
+          const item = document.createElement("div");
+          item.className =
+            "palette-item" + (index === activeIndex ? " active" : "");
+          item.dataset.index = index.toString();
+          item.innerHTML = `
+            <div class="palette-item-main">
+              <div class="palette-item-label">${cmd.label}</div>
+              <div class="palette-item-desc">${cmd.description}</div>
+            </div>
+            <div class="palette-shortcut">Enter</div>
+          `;
+          item.addEventListener("click", () => {
+            runCommand(index);
+          });
+          paletteList.appendChild(item);
+        });
+      }
+
+      function openPalette() {
+        paletteOverlay.classList.add("open");
+        paletteOverlay.setAttribute("aria-hidden", "false");
+        paletteSearch.value = "";
+        filteredCommands = commands.slice();
+        activeIndex = 0;
+        renderPalette();
+        setTimeout(() => paletteSearch.focus(), 10);
+      }
+
+      function closePalette() {
+        paletteOverlay.classList.remove("open");
+        paletteOverlay.setAttribute("aria-hidden", "true");
+      }
+
+      function runCommand(index) {
+        const cmd = filteredCommands[index];
+        if (!cmd) return;
+        closePalette();
+        cmd.action();
+      }
+
+      paletteSearch.addEventListener("input", () => {
+        const value = paletteSearch.value.toLowerCase();
+        filteredCommands = commands.filter((cmd) => {
+          return (
+            cmd.label.toLowerCase().includes(value) ||
+            cmd.description.toLowerCase().includes(value)
+          );
+        });
+        activeIndex = 0;
+        renderPalette();
+      });
+
+      paletteOverlay.addEventListener("click", (event) => {
+        if (event.target === paletteOverlay) {
+          closePalette();
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        const isMac = navigator.platform.toUpperCase().includes("MAC");
+        const shortcutPressed =
+          (isMac && event.metaKey && event.key === "k") ||
+          (!isMac && event.ctrlKey && event.key === "k");
+
+        if (shortcutPressed) {
+          event.preventDefault();
+          if (paletteOverlay.classList.contains("open")) {
+            closePalette();
+          } else {
+            openPalette();
+          }
+          return;
+        }
+
+        if (!paletteOverlay.classList.contains("open")) return;
+
+        if (event.key === "Escape") {
+          closePalette();
+          return;
+        }
+
+        if (event.key === "ArrowDown") {
+          event.preventDefault();
+          if (filteredCommands.length === 0) return;
+          activeIndex = (activeIndex + 1) % filteredCommands.length;
+          renderPalette();
+          return;
+        }
+
+        if (event.key === "ArrowUp") {
+          event.preventDefault();
+          if (filteredCommands.length === 0) return;
+          activeIndex =
+            (activeIndex - 1 + filteredCommands.length) %
+            filteredCommands.length;
+          renderPalette();
+          return;
+        }
+
+        if (event.key === "Enter") {
+          event.preventDefault();
+          runCommand(activeIndex);
+        }
+      });
+
       // Footer year
       const yearSpan = document.getElementById("yearSpan");
       yearSpan.textContent = new Date().getFullYear();
-
-      // If someone comes from deep link, ensure theme and scroll still work
     </script>
   </body>
 </html>

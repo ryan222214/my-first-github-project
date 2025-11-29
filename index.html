@@ -1,11 +1,1406 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Ryan's First GitHub Site</title>
+    <meta charset="UTF-8" />
+    <title>Ryan's AI Lab</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Ryan's first GitHub site. A lab where AI helps build tools, systems, and ideas."
+    />
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg: #050816;
+        --bg-soft: #0b1020;
+        --bg-softer: #111827;
+        --accent: #6366f1;
+        --accent-soft: rgba(99, 102, 241, 0.15);
+        --accent-strong: #4f46e5;
+        --text: #e5e7eb;
+        --muted: #9ca3af;
+        --border: #1f2933;
+        --danger: #f97373;
+      }
+
+      /* Dark mode variables */
+      :root[data-theme="light"] {
+        --bg: #f3f4f6;
+        --bg-soft: #ffffff;
+        --bg-softer: #f9fafb;
+        --accent: #4f46e5;
+        --accent-soft: rgba(79, 70, 229, 0.12);
+        --accent-strong: #4338ca;
+        --text: #111827;
+        --muted: #6b7280;
+        --border: #e5e7eb;
+        --danger: #dc2626;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        background: radial-gradient(circle at top, #111827 0, var(--bg) 45%);
+        color: var(--text);
+        min-height: 100vh;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 1.5rem 1.25rem 3rem;
+      }
+
+      /* Nav */
+
+      .nav {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(16px);
+        background: linear-gradient(
+          to bottom,
+          rgba(5, 8, 22, 0.92),
+          rgba(5, 8, 22, 0.6)
+        );
+        border-bottom: 1px solid rgba(31, 41, 55, 0.9);
+        margin: -1.5rem -1.25rem 1.5rem;
+        padding: 0.75rem 1.5rem;
+      }
+
+      :root[data-theme="light"] .nav {
+        background: rgba(249, 250, 251, 0.9);
+        border-bottom: 1px solid rgba(229, 231, 235, 0.9);
+      }
+
+      .nav-inner {
+        max-width: 1120px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .nav-left {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .nav-logo {
+        width: 28px;
+        height: 28px;
+        border-radius: 999px;
+        background: radial-gradient(circle at 30% 20%, #ffffff, #4f46e5);
+        box-shadow: 0 0 24px rgba(129, 140, 248, 0.8);
+      }
+
+      .nav-title {
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+
+      .nav-subtitle {
+        font-size: 0.78rem;
+        color: var(--muted);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1.25rem;
+        align-items: center;
+        font-size: 0.85rem;
+      }
+
+      .nav-link {
+        color: var(--muted);
+        cursor: pointer;
+        position: relative;
+      }
+
+      .nav-link:hover {
+        color: var(--text);
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -0.25rem;
+        width: 0;
+        height: 2px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #4f46e5, #22d3ee);
+        transition: width 0.18s ease;
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .theme-toggle {
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        padding: 0.3rem 0.7rem;
+        font-size: 0.8rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        background: rgba(15, 23, 42, 0.9);
+        cursor: pointer;
+      }
+
+      :root[data-theme="light"] .theme-toggle {
+        background: #ffffff;
+      }
+
+      .theme-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 999px;
+        background: var(--accent);
+      }
+
+      /* Hero */
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 2fr) minmax(0, 1.8fr);
+        gap: 2rem;
+        align-items: center;
+        padding-top: 0.75rem;
+        padding-bottom: 2rem;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.25rem 0.6rem;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        border: 1px solid rgba(99, 102, 241, 0.35);
+        color: var(--accent);
+        font-size: 0.7rem;
+        margin-bottom: 0.9rem;
+      }
+
+      .badge-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: #22c55e;
+        box-shadow: 0 0 12px rgba(34, 197, 94, 0.8);
+      }
+
+      .hero-title {
+        font-size: clamp(2rem, 3.1vw, 2.6rem);
+        font-weight: 700;
+        margin-bottom: 0.6rem;
+      }
+
+      .hero-highlight {
+        background: linear-gradient(90deg, #a855f7, #22d3ee, #4f46e5);
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+
+      .hero-subtitle {
+        font-size: 0.95rem;
+        color: var(--muted);
+        max-width: 32rem;
+        margin-bottom: 1.2rem;
+      }
+
+      .hero-subtitle strong {
+        color: var(--text);
+        font-weight: 500;
+      }
+
+      .hero-cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-bottom: 1.3rem;
+      }
+
+      .btn-primary,
+      .btn-outline {
+        border-radius: 999px;
+        padding: 0.55rem 1.1rem;
+        font-size: 0.9rem;
+        border: 1px solid transparent;
+        cursor: pointer;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #4f46e5, #22d3ee);
+        color: white;
+        border-color: transparent;
+        box-shadow: 0 10px 30px rgba(56, 189, 248, 0.35);
+      }
+
+      .btn-primary:hover {
+        filter: brightness(1.05);
+      }
+
+      .btn-outline {
+        background: transparent;
+        border-color: var(--border);
+        color: var(--muted);
+      }
+
+      .btn-outline:hover {
+        border-color: var(--accent);
+        color: var(--text);
+      }
+
+      .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+
+      .hero-meta-item span {
+        display: block;
+        font-size: 0.75rem;
+        color: var(--text);
+        font-weight: 500;
+      }
+
+      .hero-right {
+        position: relative;
+        min-height: 260px;
+      }
+
+      .hero-card {
+        position: relative;
+        padding: 1.25rem 1.15rem;
+        border-radius: 1.1rem;
+        background: radial-gradient(circle at top left, #1f2937, #020617);
+        border: 1px solid rgba(31, 41, 55, 0.9);
+        box-shadow: 0 28px 60px rgba(15, 23, 42, 0.9);
+        overflow: hidden;
+      }
+
+      :root[data-theme="light"] .hero-card {
+        background: #ffffff;
+        border-color: #e5e7eb;
+        box-shadow: 0 24px 40px rgba(148, 163, 184, 0.45);
+      }
+
+      .orbit {
+        position: absolute;
+        inset: -30%;
+        background: radial-gradient(
+          circle at 0 0,
+          rgba(129, 140, 248, 0.6),
+          transparent 55%
+        );
+        opacity: 0.5;
+        pointer-events: none;
+      }
+
+      .hero-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.25rem 0.6rem;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(55, 65, 81, 0.8);
+        font-size: 0.68rem;
+        color: var(--muted);
+        margin-bottom: 0.6rem;
+      }
+
+      :root[data-theme="light"] .hero-pill {
+        background: #f9fafb;
+      }
+
+      .hero-pill-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #f97316, #facc15);
+      }
+
+      .hero-card-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-bottom: 0.4rem;
+      }
+
+      .hero-card-sub {
+        font-size: 0.78rem;
+        color: var(--muted);
+        margin-bottom: 0.75rem;
+      }
+
+      .hero-list {
+        list-style: none;
+        font-size: 0.8rem;
+        display: grid;
+        gap: 0.45rem;
+        margin-bottom: 0.9rem;
+      }
+
+      .hero-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.4rem;
+      }
+
+      .hero-list-bullet {
+        margin-top: 0.13rem;
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: var(--accent);
+      }
+
+      .stat-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.5rem;
+        font-size: 0.75rem;
+        border-top: 1px dashed rgba(75, 85, 99, 0.8);
+        padding-top: 0.6rem;
+        margin-top: 0.4rem;
+      }
+
+      .stat-label {
+        color: var(--muted);
+      }
+
+      .stat-value {
+        color: var(--accent);
+        font-weight: 500;
+      }
+
+      .floating-chip {
+        position: absolute;
+        right: -6px;
+        top: 14%;
+        padding: 0.35rem 0.7rem;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        background: rgba(15, 23, 42, 0.95);
+        border: 1px solid rgba(55, 65, 81, 0.9);
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        transform: translateY(0);
+        animation: floatY 6s ease-in-out infinite;
+      }
+
+      :root[data-theme="light"] .floating-chip {
+        background: #ffffff;
+        border-color: #e5e7eb;
+      }
+
+      .floating-chip-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 999px;
+        background: #22c55e;
+      }
+
+      .floating-pill-secondary {
+        position: absolute;
+        left: -4px;
+        bottom: 12%;
+        padding: 0.4rem 0.7rem;
+        border-radius: 0.9rem;
+        background: rgba(15, 23, 42, 0.9);
+        border: 1px solid rgba(75, 85, 99, 0.9);
+        font-size: 0.7rem;
+        max-width: 190px;
+        color: var(--muted);
+        transform: translateY(0);
+        animation: floatY 7s ease-in-out infinite alternate;
+      }
+
+      :root[data-theme="light"] .floating-pill-secondary {
+        background: #ffffff;
+        border-color: #e5e7eb;
+      }
+
+      .floating-pill-secondary strong {
+        display: block;
+        color: var(--text);
+        font-weight: 500;
+      }
+
+      .typing {
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      @keyframes floatY {
+        0% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-4px);
+        }
+        100% {
+          transform: translateY(0);
+        }
+      }
+
+      /* Sections */
+
+      .section {
+        margin-bottom: 2.2rem;
+        padding: 1.4rem 1.2rem;
+        border-radius: 1.1rem;
+        background: linear-gradient(
+          145deg,
+          rgba(15, 23, 42, 0.97),
+          rgba(17, 24, 39, 0.96)
+        );
+        border: 1px solid rgba(31, 41, 55, 0.9);
+        box-shadow: 0 24px 55px rgba(15, 23, 42, 0.95);
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity 0.45s ease, transform 0.45s ease;
+      }
+
+      :root[data-theme="light"] .section {
+        background: #ffffff;
+        border-color: #e5e7eb;
+        box-shadow: 0 20px 40px rgba(148, 163, 184, 0.5);
+      }
+
+      .section.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .section-header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 0.75rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .section-title {
+        font-size: 1rem;
+        font-weight: 600;
+      }
+
+      .section-tagline {
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .pill {
+        font-size: 0.72rem;
+        padding: 0.18rem 0.55rem;
+        border-radius: 999px;
+        border: 1px solid rgba(55, 65, 81, 0.9);
+        color: var(--muted);
+        background: rgba(15, 23, 42, 0.85);
+      }
+
+      :root[data-theme="light"] .pill {
+        background: #f9fafb;
+        border-color: #e5e7eb;
+      }
+
+      .pill.highlight {
+        border-color: var(--accent);
+        background: var(--accent-soft);
+        color: var(--accent);
+      }
+
+      .split {
+        display: grid;
+        grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.4fr);
+        gap: 1.5rem;
+      }
+
+      .section p {
+        font-size: 0.86rem;
+        color: var(--muted);
+      }
+
+      .section p + p {
+        margin-top: 0.55rem;
+      }
+
+      .list {
+        list-style: none;
+        display: grid;
+        gap: 0.55rem;
+        padding-top: 0.3rem;
+      }
+
+      .list-item {
+        font-size: 0.84rem;
+        color: var(--muted);
+        display: flex;
+        align-items: flex-start;
+        gap: 0.4rem;
+      }
+
+      .list-bullet {
+        margin-top: 0.18rem;
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: var(--accent);
+      }
+
+      /* Cards */
+
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.9rem;
+      }
+
+      @media (max-width: 900px) {
+        .card-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 640px) {
+        .card-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+
+      .card {
+        border-radius: 0.9rem;
+        border: 1px solid rgba(55, 65, 81, 0.9);
+        background: radial-gradient(
+          circle at top left,
+          rgba(99, 102, 241, 0.12),
+          rgba(15, 23, 42, 0.95)
+        );
+        padding: 0.75rem 0.8rem;
+        font-size: 0.8rem;
+      }
+
+      :root[data-theme="light"] .card {
+        background: linear-gradient(135deg, #f9fafb, #ffffff);
+        border-color: #e5e7eb;
+      }
+
+      .card-title {
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+
+      .card-body {
+        color: var(--muted);
+        margin-bottom: 0.5rem;
+      }
+
+      .card-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        font-size: 0.68rem;
+        color: var(--accent);
+        background: var(--accent-soft);
+        border-radius: 999px;
+        padding: 0.12rem 0.45rem;
+      }
+
+      .roadmap {
+        display: grid;
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.5fr);
+        gap: 1.4rem;
+      }
+
+      .timeline {
+        border-left: 1px dashed rgba(75, 85, 99, 0.9);
+        padding-left: 0.8rem;
+        display: grid;
+        gap: 0.7rem;
+      }
+
+      .timeline-item {
+        position: relative;
+      }
+
+      .timeline-dot {
+        position: absolute;
+        left: -1.03rem;
+        top: 0.1rem;
+        width: 9px;
+        height: 9px;
+        border-radius: 999px;
+        background: var(--accent);
+        box-shadow: 0 0 12px rgba(129, 140, 248, 0.8);
+      }
+
+      .timeline-title {
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 0.1rem;
+      }
+
+      .timeline-meta {
+        font-size: 0.72rem;
+        color: var(--muted);
+        margin-bottom: 0.25rem;
+      }
+
+      .chips-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+        padding-top: 0.3rem;
+      }
+
+      .chip {
+        font-size: 0.7rem;
+        border-radius: 999px;
+        padding: 0.15rem 0.55rem;
+        border: 1px solid rgba(55, 65, 81, 0.9);
+        color: var(--muted);
+      }
+
+      :root[data-theme="light"] .chip {
+        border-color: #e5e7eb;
+      }
+
+      /* Contact */
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.3fr);
+        gap: 1.2rem;
+      }
+
+      .input-row {
+        display: grid;
+        gap: 0.6rem;
+      }
+
+      .label {
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+
+      .fake-input,
+      .fake-textarea {
+        width: 100%;
+        border-radius: 0.7rem;
+        border: 1px solid rgba(55, 65, 81, 0.9);
+        padding: 0.5rem 0.65rem;
+        font-size: 0.8rem;
+        color: var(--muted);
+        background: rgba(15, 23, 42, 0.95);
+      }
+
+      :root[data-theme="light"] .fake-input,
+      :root[data-theme="light"] .fake-textarea {
+        background: #f9fafb;
+        border-color: #e5e7eb;
+      }
+
+      .fake-textarea {
+        min-height: 90px;
+      }
+
+      .helper-text {
+        font-size: 0.7rem;
+        color: var(--muted);
+        margin-top: 0.3rem;
+      }
+
+      .note-card {
+        border-radius: 0.9rem;
+        border: 1px dashed rgba(75, 85, 99, 0.9);
+        padding: 0.8rem 0.8rem 0.7rem;
+        font-size: 0.8rem;
+        background: rgba(15, 23, 42, 0.9);
+      }
+
+      :root[data-theme="light"] .note-card {
+        background: #f9fafb;
+        border-style: solid;
+        border-color: #e5e7eb;
+      }
+
+      .note-card strong {
+        display: block;
+        margin-bottom: 0.3rem;
+      }
+
+      .footer {
+        margin-top: 1.2rem;
+        padding-top: 0.8rem;
+        border-top: 1px solid rgba(31, 41, 55, 0.9);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 0.6rem;
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+
+      .footer span {
+        white-space: nowrap;
+      }
+
+      .footer a {
+        color: var(--accent);
+      }
+
+      .back-to-top {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+
+      /* Typewriter cursor */
+
+      .cursor {
+        display: inline-block;
+        width: 1px;
+        height: 1em;
+        background: var(--accent);
+        margin-left: 2px;
+        animation: blink 1s steps(2, start) infinite;
+        vertical-align: middle;
+      }
+
+      @keyframes blink {
+        0%,
+        50% {
+          opacity: 1;
+        }
+        50.01%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      /* Responsive */
+
+      @media (max-width: 880px) {
+        .hero {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .hero-right {
+          order: -1;
+        }
+
+        .hero-card {
+          margin-bottom: 0.5rem;
+        }
+
+        .floating-chip {
+          top: 8%;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .nav-inner {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.5rem;
+        }
+
+        .nav-links {
+          width: 100%;
+          justify-content: space-between;
+        }
+
+        .hero {
+          padding-bottom: 1.4rem;
+        }
+
+        .split,
+        .roadmap,
+        .contact-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .page {
+          padding-inline: 1rem;
+        }
+
+        .nav {
+          padding-inline: 1rem;
+        }
+
+        .hero-meta {
+          flex-direction: column;
+        }
+
+        .nav-links {
+          flex-wrap: wrap;
+          gap: 0.5rem;
+        }
+      }
+    </style>
   </head>
+
   <body>
-    <h1>Hello from Ryan on GitHub</h1>
-    <p>This is my first website hosted through GitHub Pages.</p>
-    <p>I am using AI to help me build tools and this project is my training ground.</p>
+    <div class="page">
+      <!-- Nav -->
+      <header class="nav">
+        <div class="nav-inner">
+          <div class="nav-left">
+            <div class="nav-logo"></div>
+            <div>
+              <div class="nav-title">Ryan's AI Lab</div>
+              <div class="nav-subtitle">Ideas first. Code with AI.</div>
+            </div>
+          </div>
+          <div class="nav-links">
+            <div class="nav-link" data-scroll="#about">About</div>
+            <div class="nav-link" data-scroll="#projects">Projects</div>
+            <div class="nav-link" data-scroll="#roadmap">Roadmap</div>
+            <div class="nav-link" data-scroll="#contact">Contact</div>
+            <button id="themeToggle" class="theme-toggle">
+              <span class="theme-dot"></span>
+              <span id="themeLabel">Dark mode</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Hero -->
+      <section class="hero">
+        <div>
+          <div class="badge">
+            <span class="badge-dot"></span>
+            Live from GitHub Pages
+          </div>
+          <h1 class="hero-title">
+            Turning ideas into
+            <span class="hero-highlight typing" id="typingText"></span>
+            <span class="cursor"></span>
+          </h1>
+          <p class="hero-subtitle">
+            This is Ryan's first GitHub project. It is a training ground where
+            <strong>AI writes the code</strong> and Ryan focuses on
+            <strong>ideas, systems, and strategy</strong>.
+          </p>
+
+          <div class="hero-cta-row">
+            <button class="btn-primary" data-scroll="#projects">
+              View sample projects
+            </button>
+            <button class="btn-outline" data-scroll="#roadmap">
+              See learning roadmap
+            </button>
+          </div>
+
+          <div class="hero-meta">
+            <div class="hero-meta-item">
+              <span>Current focus</span>
+              AI assisted tools for content, data, and automation.
+            </div>
+            <div class="hero-meta-item">
+              <span>Tech stack</span>
+              ChatGPT, GitHub, HTML, CSS, JavaScript.
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="hero-card">
+            <div class="orbit"></div>
+            <div class="hero-pill">
+              <div class="hero-pill-dot"></div>
+              First GitHub site
+            </div>
+            <div class="hero-card-title">
+              AI assisted creator operating system
+            </div>
+            <div class="hero-card-sub">
+              A single place for experiments that support history content,
+              Bible content, supplements, and future products.
+            </div>
+            <ul class="hero-list">
+              <li>
+                <div class="hero-list-bullet"></div>
+                <div>
+                  Use AI to generate tools that automate parts of the content
+                  pipeline.
+                </div>
+              </li>
+              <li>
+                <div class="hero-list-bullet"></div>
+                <div>
+                  Store everything in GitHub so projects are versioned,
+                  organized, and easy to improve.
+                </div>
+              </li>
+              <li>
+                <div class="hero-list-bullet"></div>
+                <div>
+                  Ship small experiments fast instead of waiting for a perfect
+                  product.
+                </div>
+              </li>
+            </ul>
+            <div class="stat-row">
+              <div>
+                <div class="stat-label">Mode</div>
+                <div class="stat-value">Learning in public</div>
+              </div>
+              <div>
+                <div class="stat-label">Owned projects</div>
+                <div class="stat-value">This is Project 001</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="floating-chip">
+            <span class="floating-chip-dot"></span>
+            Built with AI guidance
+          </div>
+
+          <div class="floating-pill-secondary">
+            <strong>Idea first. Code second.</strong>
+            The long term advantage comes from better ideas and systems, not
+            just more code.
+          </div>
+        </div>
+      </section>
+
+      <!-- About -->
+      <section id="about" class="section">
+        <div class="section-header">
+          <h2 class="section-title">About this lab</h2>
+          <div class="section-tagline">
+            A place to learn GitHub and ship experiments with AI.
+          </div>
+        </div>
+
+        <div class="split">
+          <div>
+            <div class="pill-row">
+              <div class="pill highlight">AI assisted development</div>
+              <div class="pill">Zero previous Git experience</div>
+              <div class="pill">Content first mindset</div>
+            </div>
+            <p>
+              This project started as a simple "Hello World" site. It now acts
+              as a small hub that can grow into something more serious as Ryan
+              learns GitHub, version control, and basic web concepts.
+            </p>
+            <p>
+              The rule is simple. Ryan describes the idea, large language
+              models write the code, and GitHub stores the work in one reliable
+              place. No need to become a traditional software engineer in
+              order to ship useful tools.
+            </p>
+          </div>
+          <div>
+            <ul class="list">
+              <li class="list-item">
+                <div class="list-bullet"></div>
+                <div>
+                  <strong>Goal 1.</strong> Use this repo as a sandbox for AI
+                  generated tools that support TikTok, YouTube, and book
+                  projects.
+                </div>
+              </li>
+              <li class="list-item">
+                <div class="list-bullet"></div>
+                <div>
+                  <strong>Goal 2.</strong> Build the habit of shipping small
+                  improvements often instead of waiting for big launches.
+                </div>
+              </li>
+              <li class="list-item">
+                <div class="list-bullet"></div>
+                <div>
+                  <strong>Goal 3.</strong> Learn just enough HTML, CSS, and
+                  JavaScript to understand what AI is doing and to tweak it.
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section id="projects" class="section">
+        <div class="section-header">
+          <h2 class="section-title">Sample project ideas</h2>
+          <div class="section-tagline">
+            Simple things AI can build that actually support the content
+            business.
+          </div>
+        </div>
+
+        <div class="card-grid">
+          <article class="card">
+            <div class="card-title">Content schedule tracker</div>
+            <div class="card-body">
+              A single page that lists history, Bible, and supplement videos
+              for the week. AI can generate the HTML table. Ryan updates ideas
+              and status.
+            </div>
+            <div class="card-tag">
+              <span>Idea stage</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-title">Hook generator playground</div>
+            <div class="card-body">
+              A tiny page where Ryan pastes a topic and AI suggests hooks, with
+              buttons to copy the best ones into the script pipeline.
+            </div>
+            <div class="card-tag">
+              <span>Prototype inside ChatGPT</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-title">Series tracker</div>
+            <div class="card-body">
+              Track multi part history or Bible series. Which episodes are
+              planned, recorded, edited, and posted. All stored as a simple
+              JSON file that AI reads and writes.
+            </div>
+            <div class="card-tag">
+              <span>Planned for later</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-title">Reading log</div>
+            <div class="card-body">
+              A minimal reading tracker for books, papers, and sources that
+              feed into scripts and books. Each entry can have tags and key
+              ideas.
+            </div>
+            <div class="card-tag">
+              <span>Low tech. Very useful.</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-title">Experiment dashboard</div>
+            <div class="card-body">
+              A page that lists current experiments. For example posting
+              schedules, new thumbnail styles, or script structures, along with
+              dates and quick notes.
+            </div>
+            <div class="card-tag">
+              <span>Future dashboard</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="card-title">Idea inbox</div>
+            <div class="card-body">
+              A simple list of raw ideas that AI can sort, group, and turn into
+              scripts. Stored in a text or JSON file inside the repo.
+            </div>
+            <div class="card-tag">
+              <span>Always growing</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Roadmap -->
+      <section id="roadmap" class="section">
+        <div class="section-header">
+          <h2 class="section-title">GitHub learning roadmap</h2>
+          <div class="section-tagline">
+            From first commit to a small library of AI built tools.
+          </div>
+        </div>
+
+        <div class="roadmap">
+          <div>
+            <p>
+              The plan is to keep things simple. Learn skills only when they
+              are needed. Each step is something Ryan can ask AI to help with.
+            </p>
+            <p>
+              GitHub becomes the home for all experiments. Over time this can
+              turn into a real portfolio of tools that support content, books,
+              and business systems.
+            </p>
+            <div class="chips-row">
+              <div class="chip">Keep everything in repos</div>
+              <div class="chip">Use Git as history</div>
+              <div class="chip">Ship small and often</div>
+              <div class="chip">AI first approach</div>
+            </div>
+          </div>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-title">Phase 1 — Web basics</div>
+              <div class="timeline-meta">Now to 2 weeks</div>
+              <div class="timeline-body">
+                Use AI to modify this page, add sections, and style. Learn how
+                HTML, CSS, and JavaScript connect. Practice committing small
+                improvements.
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-title">Phase 2 — Local setup</div>
+              <div class="timeline-meta">When ready</div>
+              <div class="timeline-body">
+                Connect GitHub to a local editor like VS Code. Let AI generate
+                files on the laptop, then push them here. This unlocks larger
+                projects.
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-title">Phase 3 — Real utilities</div>
+              <div class="timeline-meta">Next 3 to 6 months</div>
+              <div class="timeline-body">
+                Build small utilities that automate parts of the content
+                workflow. Things like trackers, dashboards, or prompt helpers.
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-title">Phase 4 — Products</div>
+              <div class="timeline-meta">Long term</div>
+              <div class="timeline-body">
+                Turn the best internal tools into products. Offer them to other
+                creators or students. GitHub becomes the foundation of a real
+                software layer under the content business.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact / notes -->
+      <section id="contact" class="section">
+        <div class="section-header">
+          <h2 class="section-title">Contact and notes</h2>
+          <div class="section-tagline">
+            This form is a mockup. Perfect for future automation.
+          </div>
+        </div>
+
+        <div class="contact-grid">
+          <div class="input-row">
+            <div>
+              <div class="label">Name</div>
+              <div class="fake-input">
+                Example: future collaborator, sponsor, or viewer
+              </div>
+            </div>
+            <div>
+              <div class="label">Reason for reaching out</div>
+              <div class="fake-input">
+                Short description. In a real version this would send data to a
+                backend or an email.
+              </div>
+            </div>
+            <div>
+              <div class="label">Message</div>
+              <div class="fake-textarea">
+                This repo has no backend yet. In the future AI could add a
+                simple server or connect to a service so these messages
+                actually arrive somewhere.
+              </div>
+              <div class="helper-text">
+                For now this is just a visual placeholder. Which is fine. The
+                priority is learning GitHub and structure first.
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="note-card">
+              <strong>How this page was built</strong>
+              <p>
+                Ryan asked AI to "make the most advanced single page site
+                possible without creating extra files". Everything here lives in
+                one
+                <code>index.html</code>
+                file. That is all GitHub Pages needs.
+              </p>
+              <p>
+                The next step is to treat this like a living document. Add new
+                sections, track experiments, and let AI improve the visuals
+                over time. Every update is stored as a commit so nothing is
+                wasted.
+              </p>
+              <p>
+                This gives Ryan a deeply practical way to learn GitHub by doing
+                real work instead of abstract exercises.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div>
+          <span id="yearSpan"></span> • Ryan's AI Lab • Hosted on GitHub Pages
+        </div>
+        <div>
+          <span class="back-to-top" data-scroll="#top">Back to top</span>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      // Set top anchor target
+      document.body.id = "top";
+
+      // Theme handling
+      const root = document.documentElement;
+      const themeToggle = document.getElementById("themeToggle");
+      const themeLabel = document.getElementById("themeLabel");
+
+      function applyTheme(theme) {
+        root.setAttribute("data-theme", theme);
+        if (theme === "light") {
+          themeLabel.textContent = "Light mode";
+        } else {
+          themeLabel.textContent = "Dark mode";
+        }
+      }
+
+      const storedTheme = localStorage.getItem("ryan-theme");
+      if (storedTheme === "light" || storedTheme === "dark") {
+        applyTheme(storedTheme);
+      } else {
+        applyTheme("dark");
+      }
+
+      themeToggle.addEventListener("click", () => {
+        const current =
+          root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+        const next = current === "dark" ? "light" : "dark";
+        applyTheme(next);
+        localStorage.setItem("ryan-theme", next);
+      });
+
+      // Smooth scrolling for nav links and buttons
+      function smoothScrollTo(target) {
+        const el = document.querySelector(target);
+        if (!el) return;
+        const y = el.getBoundingClientRect().top + window.scrollY - 76;
+        window.scrollTo({
+          top: y,
+          behavior: "smooth",
+        });
+      }
+
+      document.querySelectorAll("[data-scroll]").forEach((el) => {
+        el.addEventListener("click", () => {
+          const target = el.getAttribute("data-scroll");
+          smoothScrollTo(target);
+        });
+      });
+
+      // Typewriter effect for hero
+      const phrases = [
+        "systems that scale",
+        "tools with AI help",
+        "experiments in public",
+        "content engines",
+      ];
+      let phraseIndex = 0;
+      let charIndex = 0;
+      let deleting = false;
+      const typingSpan = document.getElementById("typingText");
+
+      function typeLoop() {
+        const current = phrases[phraseIndex];
+        if (!deleting) {
+          charIndex++;
+          typingSpan.textContent = current.slice(0, charIndex);
+          if (charIndex === current.length) {
+            deleting = true;
+            setTimeout(typeLoop, 1000);
+            return;
+          }
+        } else {
+          charIndex--;
+          typingSpan.textContent = current.slice(0, charIndex);
+          if (charIndex === 0) {
+            deleting = false;
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+          }
+        }
+        const delay = deleting ? 40 : 80;
+        setTimeout(typeLoop, delay);
+      }
+      typeLoop();
+
+      // Reveal sections on scroll
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.16 }
+      );
+
+      document.querySelectorAll(".section").forEach((section) => {
+        observer.observe(section);
+      });
+
+      // Footer year
+      const yearSpan = document.getElementById("yearSpan");
+      yearSpan.textContent = new Date().getFullYear();
+
+      // If someone comes from deep link, ensure theme and scroll still work
+    </script>
   </body>
 </html>
